@@ -28,7 +28,8 @@ function lc_carousel() {
     ob_start();
     ?>
 
-    <div class="preview-services">
+    <div>
+        <div class="preview-services">
 
         <!-- Getting products that should be displayed on homepage -->
         <?php
@@ -40,12 +41,19 @@ function lc_carousel() {
         ]);
 
         if($products->have_posts()) {
+            $scroll_markers = [];
+
             while($products->have_posts()) {
                 $products->the_post();
+
+                //Adding item to list
+                $id = get_the_id();
+                array_push($scroll_markers, $id);
+
                 ?>
 
                     <a href="<?php the_permalink(); ?>">
-                        <article>
+                        <article class="card">
                             <?php
                             if(has_post_thumbnail()) {
                                 the_post_thumbnail("product-thumbnail");
@@ -58,10 +66,52 @@ function lc_carousel() {
                     </a>
                 <?php
             }
-            wp_reset_postdata();
+            ?>
+        </div>
+
+        <!-- Creating scrollmarkers -->
+        <div class="card-markers">
+            <?php
+                foreach($scroll_markers as $marker) {
+                    ?>
+                        <div class="marker"></div>
+                    <?php
+                }
+            ?>
+        </div>
+
+        <?php
+        wp_reset_postdata();
         }
         ?>
 
+        <!-- Scrollmarker functionality -->
+        <script>
+
+            //Getting elements
+            const container = document.querySelector(".preview-services");
+            const cards = document.getElementsByClassName("card");
+            const markers = document.getElementsByClassName("marker");
+
+            //Figuring out current card/position
+            function current_card() {
+                const px_to_left = container.scrollLeft;
+                const card_width = cards[0].offsetWidth;
+                const position = Math.floor(px_to_left/240);  //Fick hjälp av chatGPT med logiken
+
+                //Removing class from previous marker
+                Array.from(markers).forEach(marker => {
+                    marker.classList.remove("marker-active");
+                });
+
+                //Adding class to current marker
+                const current_marker = markers[position];
+                current_marker.classList.add("marker-active");
+            }
+
+            container.addEventListener("scroll", current_card);
+            
+        </script>
     </div>
 
     <?php

@@ -1,9 +1,51 @@
 /* Cards */
+.preview-services {
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+}
+
+/* Hiding scrollbar */
+.preview-services::-webkit-scrollbar {
+    display: none;
+}
+
+
+/* Scroll markers */
+.card-markers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.marker {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    margin: 10px;
+    background-color: #86C5FF;
+}
+
+.marker:hover {
+    cursor: pointer;
+}
+
+.marker-active {
+    height: 8px;
+    width: 8px;
+    background-color: #a8d5ff;
+}
+
+/* Article styling */
 .preview-services > a {
     display: block;
     width: 250px;
     text-decoration: none;
     color: #fff;
+
+    margin-right: 20px;
+    scroll-snap-align: center;
 }
 
 .preview-services > a > article {
@@ -19,20 +61,4 @@
 
 .preview-services > a > article > div {
     padding: 10px 2vw;
-}
-
-/* News*/
-.preview-news > article {
-    display: flex;
-    margin: 50px 0px;
-}
-
-.preview-news > article > div {
-    display: flex;
-    flex-direction: column;
-    padding: 0px 2vw;
-}
-
-.preview-news > article > div > h3 > a {
-    color: black;
 }
