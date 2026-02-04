@@ -96,8 +96,8 @@ function lc_carousel() {
             //Figuring out current card/position
             function current_card() {
                 const px_to_left = container.scrollLeft;
-                const card_width = cards[0].offsetWidth;
-                const position = Math.floor(px_to_left/card_width);  //Fick hjälp av chatGPT med logiken
+                const card_width = cards[0].getBoundingClientRect().width;
+                const position = Math.round(px_to_left/card_width);
 
                 //Removing class from previous marker
                 Array.from(markers).forEach(marker => {
@@ -113,9 +113,10 @@ function lc_carousel() {
             function scroll(index) {
                 const card = cards[index];
                 
-                container.scrollTo({
-                    left: card.offsetLeft,
-                    behavior: "smooth"
+                card.scrollIntoView({
+                    behavior: "smooth",
+                    inline: "center",
+                    block: "nearest"
                 });
             }
 
