@@ -97,7 +97,7 @@ function lc_carousel() {
             function current_card() {
                 const px_to_left = container.scrollLeft;
                 const card_width = cards[0].offsetWidth;
-                const position = Math.floor(px_to_left/240);  //Fick hjälp av chatGPT med logiken
+                const position = Math.floor(px_to_left/card_width);  //Fick hjälp av chatGPT med logiken
 
                 //Removing class from previous marker
                 Array.from(markers).forEach(marker => {
@@ -109,7 +109,21 @@ function lc_carousel() {
                 current_marker.classList.add("marker-active");
             }
 
+            //Scroll when clicking marker
+            function scroll(index) {
+                const card = cards[index];
+                
+                container.scrollTo({
+                    left: card.offsetLeft,
+                    behavior: "smooth"
+                });
+            }
+
+            //Eventlisteners
             container.addEventListener("scroll", current_card);
+            Array.from(markers).forEach((marker, index) => {
+                marker.addEventListener("click", () => scroll(index));
+            });
             
         </script>
     </div>
