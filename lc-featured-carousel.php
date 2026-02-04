@@ -57,6 +57,12 @@ function lc_carousel() {
                             <?php
                             if(has_post_thumbnail()) {
                                 the_post_thumbnail("product-thumbnail");
+                            } else {          
+                            ?>
+                            <div class="default-img">
+                                <img src="<?php echo get_template_directory_uri(); ?>/images/favicon.svg" width="100" alt="Lilla Caféet">
+                            </div>
+                            <?php
                             }
                             ?>
                             <div>
