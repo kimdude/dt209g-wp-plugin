@@ -1,0 +1,38 @@
+/* Cards */
+.preview-services > a {
+    display: block;
+    width: 250px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.preview-services > a > article {
+    width: 250px;
+    border-radius: 15px;
+    background-color: #2E5AA7;
+    box-shadow: 0px 4px 9px rgba(0,0,0,0.3);
+}
+
+.preview-services > a > article > img {
+    border-radius: 15px 15px 0px 0px;
+}
+
+.preview-services > a > article > div {
+    padding: 10px 2vw;
+}
+
+/* News*/
+.preview-news > article {
+    display: flex;
+    margin: 50px 0px;
+}
+
+.preview-news > article > div {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 2vw;
+}
+
+.preview-news > article > div > h3 > a {
+    color: black;
+}
