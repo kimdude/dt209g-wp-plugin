@@ -96,34 +96,71 @@ function lc_carousel() {
 
             //Getting elements
             const container = document.querySelector(".preview-services");
+            const markers_container = document.querySelector(".card-markers");
             const cards = document.getElementsByClassName("card");
             const markers = document.getElementsByClassName("marker");
 
+            //Setting card index by position or direct index
+            let card_by_position = true;
+
+            window.onload = () => {
+                check_width();
+            }
+
+            //Checking if scroll is needed
+            function check_width() {
+                if(container.scrollWidth > container.offsetWidth) {
+                    markers_container.style.display = "flex";
+                } else {
+                    markers_container.style.display = "none";
+                }
+            }
+
             //Figuring out current card/position
             function current_card() {
-                const px_to_left = container.scrollLeft;
-                const card_width = cards[0].getBoundingClientRect().width;
-                const position = Math.round(px_to_left/card_width);
 
-                //Removing class from previous marker
-                Array.from(markers).forEach(marker => {
-                    marker.classList.remove("marker-active");
-                });
+                if(card_by_position){
 
-                //Adding class to current marker
-                const current_marker = markers[position];
-                current_marker.classList.add("marker-active");
+                    const px_to_left = container.scrollLeft;
+                    const card_width = cards[0].getBoundingClientRect().width;
+                    const position = Math.round(px_to_left/card_width);
+
+                    select_marker(position);
+                }
+
             }
 
             //Scroll when clicking marker
             function scroll(index) {
+
+                //Finding card
+                card_by_position = false;
                 const card = cards[index];
-                
+
+                //Scrolling to card
                 card.scrollIntoView({
                     behavior: "smooth",
                     inline: "center",
                     block: "nearest"
                 });
+
+                select_marker(index);
+
+                //Resetting marker selection to select by position
+                setTimeout(() => { card_by_position = true; }, 5000);
+            }
+
+            //Setting current marker to active
+            function select_marker(index) {
+
+                    //Removing class from previous marker
+                    Array.from(markers).forEach(marker => {
+                        marker.classList.remove("marker-active");
+                    });
+
+                    //Adding class to current marker
+                    const current_marker = markers[index];
+                    current_marker.classList.add("marker-active");
             }
 
             //Eventlisteners
